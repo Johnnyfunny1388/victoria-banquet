@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>維多利亞宴會館 — 典藏每一刻美好</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8D5A3;
+    --gold-dim: #8B6914;
+    --dark: #0E0C0A;
+    --dark-2: #1A1710;
+    --dark-3: #252218;
+    --dark-4: #2F2B1E;
+    --cream: #FAF3E6;
+    --cream-dim: #DDD0A8;
+    --text-muted: #B8A88A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--cream);
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── Ornament ── */
+  .ornament {
+    display: flex; align-items: center; gap: 16px;
+    color: var(--gold); font-size: 13px; letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+  .ornament::before, .ornament::after {
+    content: ''; flex: 1; height: 0.5px; background: var(--gold); opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 60px;
+    background: linear-gradient(to bottom, rgba(14,12,10,0.95) 0%, transparent 100%);
+    transition: background 0.4s;
+  }
+  nav.scrolled { background: rgba(14,12,10,0.97); border-bottom: 0.5px solid rgba(201,168,76,0.2); }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 400; letter-spacing: 0.1em;
+    color: var(--gold); text-decoration: none;
+  }
+  .nav-logo span { font-style: italic; font-weight: 300; }
+
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    color: var(--cream); text-decoration: none;
+    font-size: 15px; letter-spacing: 0.15em;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    background: transparent; border: 0.5px solid var(--gold);
+    color: var(--gold); padding: 10px 24px;
+    font-family: 'Noto Serif TC', serif; font-size: 13px; letter-spacing: 0.15em;
+    cursor: pointer; transition: all 0.3s;
+  }
+  .nav-cta:hover { background: var(--gold); color: var(--dark); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    background: var(--dark);
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.07) 0%, transparent 70%),
+      repeating-linear-gradient(
+        45deg,
+        transparent, transparent 40px,
+        rgba(201,168,76,0.015) 40px, rgba(201,168,76,0.015) 41px
+      );
+  }
+
+  .hero-deco-left, .hero-deco-right {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 1px; height: 280px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    opacity: 0.3;
+  }
+  .hero-deco-left { left: 80px; }
+  .hero-deco-right { right: 80px; }
+
+  .hero-corner {
+    position: absolute; width: 60px; height: 60px;
+    border-color: var(--gold); border-style: solid; opacity: 0.3;
+  }
+  .hero-corner.tl { top: 120px; left: 60px; border-width: 1px 0 0 1px; }
+  .hero-corner.tr { top: 120px; right: 60px; border-width: 1px 1px 0 0; }
+  .hero-corner.bl { bottom: 60px; left: 60px; border-width: 0 0 1px 1px; }
+  .hero-corner.br { bottom: 60px; right: 60px; border-width: 0 1px 1px 0; }
+
+  .hero-content {
+    text-align: center; position: relative; z-index: 1;
+    padding: 0 40px;
+    animation: fadeUp 1.2s ease both;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px; letter-spacing: 0.5em; color: var(--gold);
+    margin-bottom: 28px; font-style: italic;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 300; line-height: 1.1;
+    color: var(--cream); letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+  .hero-title em {
+    font-style: italic; color: var(--gold);
+    display: block; font-size: 0.65em; letter-spacing: 0.2em;
+    margin-top: 8px;
+  }
+
+  .hero-sub {
+    font-size: 17px; letter-spacing: 0.25em;
+    color: var(--cream); margin: 32px 0 48px;
+    line-height: 2;
+  }
+
+  .hero-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--gold); color: var(--dark);
+    border: none; padding: 16px 48px;
+    font-family: 'Noto Serif TC', serif; font-size: 14px; letter-spacing: 0.2em;
+    cursor: pointer; transition: all 0.3s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent; color: var(--cream);
+    border: 0.5px solid rgba(245,237,216,0.3); padding: 16px 48px;
+    font-family: 'Noto Serif TC', serif; font-size: 14px; letter-spacing: 0.2em;
+    cursor: pointer; transition: all 0.3s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-scroll {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: var(--text-muted); font-size: 13px; letter-spacing: 0.3em;
+    animation: fadeIn 2s 1s both;
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--dark-2);
+    border-top: 0.5px solid rgba(201,168,76,0.2);
+    border-bottom: 0.5px solid rgba(201,168,76,0.2);
+    padding: 40px 60px;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+  }
+  .stat-item {
+    text-align: center; padding: 20px;
+    border-right: 0.5px solid rgba(201,168,76,0.15);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px; font-weight: 300; color: var(--gold);
+    line-height: 1;
+  }
+  .stat-num sup { font-size: 20px; }
+  .stat-label { font-size: 15px; letter-spacing: 0.2em; color: var(--cream); margin-top: 8px; }
+
+  /* ── SERVICES ── */
+  .section { padding: 120px 60px; }
+  .section-header { text-align: center; margin-bottom: 80px; }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 56px); font-weight: 300;
+    color: var(--cream); letter-spacing: 0.05em; margin: 20px 0 16px;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  .section-desc { font-size: 16px; color: var(--cream); letter-spacing: 0.15em; line-height: 2; }
+
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; max-width: 1200px; margin: 0 auto;
+  }
+
+  .service-card {
+    background: var(--dark-2);
+    padding: 48px 36px;
+    border: 0.5px solid rgba(201,168,76,0.1);
+    position: relative; overflow: hidden;
+    transition: all 0.4s;
+    cursor: default;
+  }
+  .service-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .service-card:hover { background: var(--dark-3); transform: translateY(-4px); }
+  .service-card:hover::before { opacity: 1; }
+
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px; color: var(--gold); letter-spacing: 0.3em;
+    margin-bottom: 24px; display: block;
+  }
+  .service-icon {
+    font-size: 28px; margin-bottom: 20px; display: block;
+    filter: sepia(1) saturate(3) hue-rotate(10deg);
+  }
+  .service-name {
+    font-size: 21px; font-weight: 400; color: var(--cream);
+    letter-spacing: 0.1em; margin-bottom: 12px;
+  }
+  .service-desc { font-size: 15px; color: var(--cream); line-height: 2; letter-spacing: 0.05em; }
+
+  /* ── ABOUT ── */
+  .about { background: var(--dark-2); }
+  .about-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center;
+  }
+
+  .about-visual {
+    position: relative; height: 500px;
+  }
+  .about-rect-main {
+    position: absolute; inset: 0;
+    background: var(--dark-3);
+    border: 0.5px solid rgba(201,168,76,0.2);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .about-placeholder {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px; color: rgba(201,168,76,0.15);
+    font-style: italic; font-weight: 300;
+  }
+  .about-rect-accent {
+    position: absolute; bottom: -20px; right: -20px;
+    width: 60%; height: 60%;
+    border: 1px solid rgba(201,168,76,0.15);
+    pointer-events: none;
+  }
+  .about-badge {
+    position: absolute; top: -20px; left: -20px;
+    width: 100px; height: 100px;
+    background: var(--gold); display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+  .about-badge-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px; font-weight: 300; color: var(--dark); line-height: 1;
+  }
+  .about-badge-text { font-size: 10px; color: var(--dark-2); letter-spacing: 0.15em; }
+
+  .about-text { }
+  .about-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px; font-weight: 300; color: var(--cream);
+    line-height: 1.3; margin: 20px 0 24px;
+  }
+  .about-title em { font-style: italic; color: var(--gold); }
+  .about-body { font-size: 16px; color: var(--cream); line-height: 2.2; letter-spacing: 0.08em; }
+  .about-body + .about-body { margin-top: 20px; }
+
+  .about-divider {
+    width: 60px; height: 0.5px; background: var(--gold);
+    margin: 32px 0; opacity: 0.5;
+  }
+
+  /* ── CONTACT ── */
+  .contact-section { background: var(--dark); }
+  .contact-inner {
+    max-width: 900px; margin: 0 auto; text-align: center;
+  }
+  .contact-form {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 60px; text-align: left;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-label { font-size: 15px; letter-spacing: 0.2em; color: var(--cream); }
+
+  .form-input, .form-select, .form-textarea {
+    background: var(--dark-2); border: 0.5px solid rgba(201,168,76,0.2);
+    color: var(--cream); padding: 14px 18px;
+    font-family: 'Noto Serif TC', serif; font-size: 16px;
+    transition: border-color 0.3s; outline: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--gold);
+  }
+  .form-select option { background: var(--dark-2); }
+  .form-textarea { resize: vertical; min-height: 120px; }
+
+  .form-submit {
+    grid-column: 1 / -1; margin-top: 8px;
+    background: var(--gold); color: var(--dark);
+    border: none; padding: 18px;
+    font-family: 'Noto Serif TC', serif; font-size: 15px; letter-spacing: 0.25em;
+    cursor: pointer; transition: all 0.3s; width: 100%;
+  }
+  .form-submit:hover { background: var(--gold-light); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark-2);
+    border-top: 0.5px solid rgba(201,168,76,0.15);
+    padding: 60px;
+  }
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; color: var(--gold); letter-spacing: 0.1em;
+    margin-bottom: 16px; display: block;
+  }
+  .footer-desc { font-size: 15px; color: var(--cream); line-height: 2; letter-spacing: 0.05em; }
+  .footer-col-title {
+    font-size: 12px; letter-spacing: 0.25em; color: var(--gold);
+    margin-bottom: 20px; padding-bottom: 12px;
+    border-bottom: 0.5px solid rgba(201,168,76,0.2);
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-links a { font-size: 15px; color: var(--cream); text-decoration: none; letter-spacing: 0.1em; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-bottom {
+    max-width: 1200px; margin: 40px auto 0;
+    padding-top: 24px; border-top: 0.5px solid rgba(201,168,76,0.1);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 14px; color: var(--cream); letter-spacing: 0.1em;
+  }
+
+  /* ── Animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50%       { opacity: 1;   transform: scaleY(1.1); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── Mobile ── */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    .hero-deco-left, .hero-deco-right,
+    .hero-corner { display: none; }
+    .stats-bar { grid-template-columns: 1fr 1fr; padding: 32px 24px; }
+    .stat-item { border-right: none; border-bottom: 0.5px solid rgba(201,168,76,0.15); }
+    .stat-item:nth-child(even) { border-left: 0.5px solid rgba(201,168,76,0.15); }
+    .stats-bar { grid-template-columns: 1fr 1fr 1fr; }
+    .section { padding: 80px 24px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .about-inner { grid-template-columns: 1fr; gap: 48px; }
+    .about-visual { height: 280px; }
+    .contact-form { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+    .footer { padding: 40px 24px; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">維多利亞 <span>Victoria</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">服務項目</a></li>
+    <li><a href="#about">關於我們</a></li>
+    <li><a href="#contact">場地諮詢</a></li>
+  </ul>
+  <button class="nav-cta">立即諮詢</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-deco-left"></div>
+  <div class="hero-deco-right"></div>
+  <div class="hero-corner tl"></div>
+  <div class="hero-corner tr"></div>
+  <div class="hero-corner bl"></div>
+  <div class="hero-corner br"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Since 2016 · Pingtung</p>
+    <h1 class="hero-title">
+      維多利亞宴會館
+      <em>Victoria Banquet Hall</em>
+    </h1>
+    <p class="hero-sub">
+      
+      婚宴 · 尾牙 · 團體餐敘 · 抓週
+    </p>
+    <div class="hero-buttons">
+      <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">立即諮詢場地</button>
+      <button class="btn-outline" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">瀏覽服務項目</button>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>向下探索</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar reveal">
+  <div class="stat-item">
+    <div class="stat-num">9<sup>+</sup></div>
+    <div class="stat-label">年深耕屏東</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">500<sup>+</sup></div>
+    <div class="stat-label">場次成功舉辦</div>
+  </div>
+  <div class="stat-item" style="cursor:default;" title="一樓75桌・三樓75桌・五樓10桌">
+    <div class="stat-num">160<sup>桌</sup></div>
+    <div class="stat-label">全館最大容納量</div>
+    <div style="font-size:13px;color:var(--cream);margin-top:6px;letter-spacing:0.1em;">一樓75・三樓75・五樓10</div>
+  </div>
+
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section-header reveal">
+    <div class="ornament">我們的服務</div>
+    <h2 class="section-title">為每一個重要時刻<em>量身打造</em></h2>
+    <p class="section-desc">從婚宴喜慶到企業盛典，每一場活動都是我們用心呈現的作品</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <span class="service-num">01</span>
+      <span class="service-icon">💍</span>
+      <div class="service-name">婚宴喜慶</div>
+      <p class="service-desc">精緻婚宴套餐，專業服務團隊全程協助，讓您的婚禮成為一生難忘的美好回憶。</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-num">02</span>
+      <span class="service-icon">🥂</span>
+      <div class="service-name">尾牙 · 春酒</div>
+      <p class="service-desc">企業年度盛典，提供多款宴席菜單與場地佈置方案，讓員工感受到公司的用心與溫度。</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-num">03</span>
+      <span class="service-icon">🏢</span>
+      <div class="service-name">大型團體餐敘</div>
+      <p class="service-desc">無論是扶輪社、獅子會、商業公會或企業年度聚會，我們提供寬敞場地與專業接待，讓每一場團體餐敘賓主盡歡。</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-num">04</span>
+      <span class="service-icon">🏮</span>
+      <div class="service-name">包廂家庭聚餐</div>
+      <p class="service-desc">私密舒適的獨立包廂，適合家族聚會、生日慶生，享受專屬的溫馨用餐時光。</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-num">05</span>
+      <span class="service-icon">🎓</span>
+      <div class="service-name">謝師宴</div>
+      <p class="service-desc">專為感謝師長而設計的宴席套餐，傳遞學子對恩師最誠摯的感謝與尊重。</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-num">07</span>
+      <span class="service-icon">👶</span>
+      <div class="service-name">抓週</div>
+      <p class="service-desc">為寶寶一歲的重要里程碑精心佈置，溫馨儀式搭配精緻宴席，讓家人共同見證這珍貴時刻。</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-num">06</span>
+      <span class="service-icon">🏛</span>
+      <div class="service-name">場地租借</div>
+      <p class="service-desc">靈活的場地租借方案，適合各類型活動，專業團隊協助場地規劃與設備安排。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about" id="about">
+  <div class="about-inner">
+    <div class="about-visual reveal">
+      <div class="about-rect-main">
+        <span class="about-placeholder">維</span>
+      </div>
+      <div class="about-rect-accent"></div>
+      <div class="about-badge">
+        <div class="about-badge-num">9</div>
+        <div class="about-badge-text">年口碑</div>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <div class="ornament">關於我們</div>
+      <h2 class="about-title">深耕屏東<em>九載</em><br>每一桌都是承諾</h2>
+      <div class="about-divider"></div>
+      <p class="about-body">維多利亞宴會館自2016年底創立以來，始終秉持對品質的堅持與對客戶的用心，在屏東打造出口碑相傳的宴客首選。</p>
+      <p class="about-body">我們相信，每一場宴會背後都承載著家庭的喜悅、企業的心意、或人與人之間珍貴的情誼。九年來，我們用專業與誠意，陪伴無數家庭與企業留下最美好的記憶。</p>
+      <div class="about-divider"></div>
+      <button class="btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">了解更多 →</button>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="section-header reveal">
+      <div class="ornament">場地諮詢</div>
+      <h2 class="section-title">讓我們為您的<em>重要時刻</em>服務</h2>
+      <p class="section-desc">填寫以下表單，我們將於一個工作天內與您聯繫</p>
+    </div>
+
+    <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+      <div class="form-group">
+        <label class="form-label">您的姓名</label>
+        <input type="text" class="form-input" placeholder="王先生 / 王小姐">
+      </div>
+      <div class="form-group">
+        <label class="form-label">聯絡電話</label>
+        <input type="tel" class="form-input" placeholder="0912-345-678">
+      </div>
+      <div class="form-group">
+        <label class="form-label">電子郵件</label>
+        <input type="email" class="form-input" placeholder="example@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">活動類型</label>
+        <select class="form-select">
+          <option value="">請選擇</option>
+          <option>婚宴喜慶</option>
+          <option>尾牙 · 春酒</option>
+          <option>企業餐敘</option>
+          <option>家庭包廂聚餐</option>
+          <option>師恩宴</option>
+          <option>場地租借</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">預計日期</label>
+        <input type="date" class="form-input">
+      </div>
+      <div class="form-group">
+        <label class="form-label">預計桌數</label>
+        <input type="text" class="form-input" placeholder="例：20 桌">
+      </div>
+      <div class="form-group full">
+        <label class="form-label">其他需求或備註</label>
+        <textarea class="form-textarea" placeholder="請描述您的活動需求、特殊要求或想了解的資訊…"></textarea>
+      </div>
+      <button type="submit" class="form-submit">送出諮詢</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <span class="footer-logo">維多利亞宴會館</span>
+      <p class="footer-desc">Since 2016年底，我們用專業與用心，<br>陪伴屏東無數家庭與企業的重要時刻。</p>
+    </div>
+    <div>
+      <div class="footer-col-title">服務項目</div>
+      <ul class="footer-links">
+        <li><a href="#">婚宴喜慶</a></li>
+        <li><a href="#">尾牙春酒</a></li>
+        <li><a href="#">企業餐敘</a></li>
+        <li><a href="#">包廂聚餐</a></li>
+        <li><a href="#">謝師宴</a></li>
+        <li><a href="#">抓週</a></li>
+        <li><a href="#">場地租借</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">聯絡資訊</div>
+      <ul class="footer-links">
+        <li><a href="#">📍 屏東縣瑞光路三段208號</a></li>
+        <li><a href="#">📞 08 735 1388</a></li>
+        <li><a href="#">💬 LINE：@kce4911p</a></li>
+        <li><a href="#">📘 Facebook 粉絲頁</a></li>
+        <li><a href="#">🕐 週一、三～日 11:00–20:00</a></li>
+        <li><a href="#">休息：每週二</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 維多利亞宴會館 Victoria Banquet Hall. All rights reserved.</span>
+    <span>深耕屏東 · 典藏美好</span>
+  </div>
+</footer>
+
+<script>
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Reveal on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Form submit
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.textContent = '✓ 已收到您的諮詢，我們將盡快與您聯繫';
+  btn.style.background = '#4a7c59';
+  btn.style.color = '#fff';
+  btn.disabled = true;
+}
+</script>
+</body>
+</html>
