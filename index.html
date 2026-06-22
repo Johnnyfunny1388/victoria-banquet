@@ -9,10 +9,7 @@
   gtag('js', new Date());
   gtag('config', 'AW-18246052690');
 </script>
-<!-- Event snippet for 網頁瀏覽 conversion -->
-<script>
-  gtag('event', 'conversion', {'send_to': 'AW-18246052690/LP96COnRw8AcENLWsvxD','value': 1.0,'currency': 'TWD'});
-</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>維多利亞宴會館｜屏東婚宴・尾牙・包廂・團體餐敘首選 | Victoria Banquet Hall</title>
@@ -136,8 +133,8 @@ nav.scrolled { background: rgba(14,12,10,0.97); border-bottom: 0.5px solid rgba(
 .service-desc { font-size: 15px; color: var(--cream); line-height: 2; letter-spacing: 0.05em; }
 
 /* GALLERY */
-.vic-slide { display: none; position: absolute; inset: 0; }
-.vic-slide.active { display: block; animation: fadeSlide 0.6s ease; }
+.vic-slide { display: none; position: absolute; inset: 0; opacity: 0; transition: opacity 0.6s ease; }
+.vic-slide.active { display: block; opacity: 1; animation: fadeSlide 0.6s ease; }
 @keyframes fadeSlide { from{opacity:0} to{opacity:1} }
 .slide-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(10,8,6,0.85), transparent); padding: 20px 32px; font-family: 'Noto Serif TC', serif; font-size: 15px; color: var(--gold); letter-spacing: 0.2em; }
 
@@ -282,20 +279,20 @@ footer { background: var(--dark-2); border-top: 0.5px solid rgba(201,168,76,0.15
       <p style="font-size:15px; color:var(--cream); letter-spacing:0.15em;">一樓・二樓・三樓・五樓 各具特色</p>
     </div>
     <div id="vic-slider" style="position:relative;height:520px;border:0.5px solid rgba(201,168,76,0.2);overflow:hidden;">
-      <div class="vic-slide active" style="position:absolute;inset:0;display:block;">
-        <img src="1F_Kelly.jpg" style="width:100%;height:100%;object-fit:cover;" alt="一樓 Kelly 廳・藍白典雅布置">
+      <div class="vic-slide active">
+        <img loading="lazy" src="1F_Kelly.jpg" style="width:100%;height:100%;object-fit:cover;" alt="一樓 Kelly 廳・藍白典雅布置">
         <div class="slide-caption">一樓 Kelly 廳・藍白典雅布置</div>
       </div>
-      <div class="vic-slide" style="position:absolute;inset:0;display:none;">
-        <img src="2F_1.jpg" style="width:100%;height:100%;object-fit:cover;" alt="二樓休息室・精緻歐式風格">
+      <div class="vic-slide">
+        <img loading="lazy" src="2F_1.jpg" style="width:100%;height:100%;object-fit:cover;" alt="二樓休息室・精緻歐式風格">
         <div class="slide-caption">二樓休息室・精緻歐式風格</div>
       </div>
-      <div class="vic-slide" style="position:absolute;inset:0;display:none;">
-        <img src="3FVictoria.jpg" style="width:100%;height:100%;object-fit:cover;" alt="三樓 Victoria 廳・水晶吊燈宴席">
+      <div class="vic-slide">
+        <img loading="lazy" src="3FVictoria.jpg" style="width:100%;height:100%;object-fit:cover;" alt="三樓 Victoria 廳・水晶吊燈宴席">
         <div class="slide-caption">三樓 Victoria 廳・水晶吊燈宴席</div>
       </div>
-      <div class="vic-slide" style="position:absolute;inset:0;display:none;">
-        <img src="5F_1.png" style="width:100%;height:100%;object-fit:cover;" alt="五樓包廂・尊榮私密空間">
+      <div class="vic-slide">
+        <img loading="lazy" src="5F_1.png" style="width:100%;height:100%;object-fit:cover;" alt="五樓包廂・尊榮私密空間">
         <div class="slide-caption">五樓包廂・尊榮私密空間</div>
       </div>
       <button onclick="vicChange(-1)" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);background:rgba(10,8,6,0.65);border:1px solid rgba(201,168,76,0.5);color:#C9A84C;font-size:26px;width:48px;height:48px;cursor:pointer;z-index:20;line-height:1;">&#8249;</button>
@@ -320,7 +317,7 @@ footer { background: var(--dark-2); border-top: 0.5px solid rgba(201,168,76,0.15
     <div class="about-visual reveal">
       <div class="about-rect-main">
         <!-- 建築外觀照片，請上傳 building.jpg 至 GitHub -->
-        <img src="Outside_1.png" alt="維多利亞宴會館外觀">
+        <img loading="lazy" src="Outside_1.png" alt="維多利亞宴會館外觀">
       </div>
       <div class="about-rect-accent"></div>
       <div class="about-badge"><div class="about-badge-num">9</div><div class="about-badge-text">年口碑</div></div>
@@ -350,11 +347,11 @@ footer { background: var(--dark-2); border-top: 0.5px solid rgba(201,168,76,0.15
         <div style="font-size: 48px; margin-bottom: 20px;">💬</div>
         <p style="font-size: 18px; color: var(--cream); letter-spacing: 0.15em; margin-bottom: 12px;">即時諮詢</p>
         <p style="font-size: 15px; color: var(--cream); line-height: 2; letter-spacing: 0.1em; margin-bottom: 32px;">加入我們的 LINE 官方帳號<br>AI 客服利亞隨時為您服務<br>婚宴、場地、菜單，任何問題都歡迎詢問</p>
-        <a href="https://line.me/R/ti/p/@kce4911p" target="_blank" style="display: inline-block; background: #06C755; color: #fff; padding: 18px 60px; font-family: 'Noto Serif TC', serif; font-size: 16px; letter-spacing: 0.2em; text-decoration: none;">＋ 加入 LINE 官方帳號</a>
+        <a href="https://line.me/R/ti/p/@kce4911p" target="_blank" style="display: inline-block; background: #06C755; color: #fff; padding: 18px 60px; font-family: 'Noto Serif TC', serif; font-size: 16px; letter-spacing: 0.2em; text-decoration: none;" onclick="gtag('event', 'conversion', {'send_to': 'AW-18246052690/LP96COnRw8AcENLWsvxD'});">＋ 加入 LINE 官方帳號</a>
         <p style="font-size: 14px; color: var(--cream); margin-top: 20px; letter-spacing: 0.1em;">LINE ID：@kce4911p</p>
       </div>
       <div style="display: flex; gap: 48px; flex-wrap: wrap; justify-content: center;">
-        <div style="text-align: center;"><div style="font-size: 22px; margin-bottom: 8px;">📞</div><p style="font-size: 13px; color: var(--cream); letter-spacing: 0.1em;">電話諮詢</p><a href="tel:0873501388" style="font-size: 16px; color: var(--gold); letter-spacing: 0.1em; text-decoration: none;">08 735 1388</a></div>
+        <div style="text-align: center;"><div style="font-size: 22px; margin-bottom: 8px;">📞</div><p style="font-size: 13px; color: var(--cream); letter-spacing: 0.1em;">電話諮詢</p><a href="tel:0873501388" style="font-size: 16px; color: var(--gold); letter-spacing: 0.1em; text-decoration: none;" onclick="gtag('event', 'conversion', {'send_to': 'AW-18246052690/LP96COnRw8AcENLWsvxD'});">08 735 1388</a></div>
         <div style="text-align: center;"><div style="font-size: 22px; margin-bottom: 8px;">🕐</div><p style="font-size: 13px; color: var(--cream); letter-spacing: 0.1em;">營業時間</p><p style="font-size: 15px; color: var(--gold); letter-spacing: 0.1em;">週一、三～日 11:00–20:00</p><p style="font-size: 13px; color: var(--cream); letter-spacing: 0.1em;">週二公休</p></div>
         <div style="text-align: center;"><div style="font-size: 22px; margin-bottom: 8px;">📍</div><p style="font-size: 13px; color: var(--cream); letter-spacing: 0.1em;">門市地址</p><a href="https://maps.app.goo.gl/GzoUcyEDyr75dJyD9" target="_blank" style="font-size: 15px; color: var(--gold); letter-spacing: 0.05em; text-decoration: none;">屏東縣瑞光路三段208號</a></div>
       </div>
@@ -386,8 +383,8 @@ footer { background: var(--dark-2); border-top: 0.5px solid rgba(201,168,76,0.15
       <div class="footer-col-title">聯絡資訊</div>
       <ul class="footer-links">
         <li><a href="https://maps.app.goo.gl/GzoUcyEDyr75dJyD9" target="_blank">📍 屏東縣瑞光路三段208號</a></li>
-        <li><a href="tel:0873501388">📞 08 735 1388</a></li>
-        <li><a href="https://line.me/R/ti/p/@kce4911p" target="_blank">💬 LINE：@kce4911p</a></li>
+        <li><a href="tel:0873501388" onclick="gtag('event', 'conversion', {'send_to': 'AW-18246052690/LP96COnRw8AcENLWsvxD'});">📞 08 735 1388</a></li>
+        <li><a href="https://line.me/R/ti/p/@kce4911p" target="_blank" onclick="gtag('event', 'conversion', {'send_to': 'AW-18246052690/LP96COnRw8AcENLWsvxD'});">💬 LINE：@kce4911p</a></li>
         <li><a href="https://www.facebook.com/victoriabanquethall" target="_blank">📘 Facebook 粉絲頁</a></li>
         <li><a href="#">🕐 週一、三～日 11:00–20:00</a></li>
         <li><a href="#">公休日：每週二</a></li>
@@ -404,13 +401,13 @@ footer { background: var(--dark-2); border-top: 0.5px solid rgba(201,168,76,0.15
 <div class="float-btns">
   <div class="float-btn-wrap">
     <span class="float-label">LINE 預約</span>
-    <a href="https://line.me/R/ti/p/@kce4911p" target="_blank" class="float-btn float-btn-line" aria-label="LINE 預約">
+    <a href="https://line.me/R/ti/p/@kce4911p" target="_blank" class="float-btn float-btn-line" aria-label="LINE 預約" onclick="gtag('event', 'conversion', {'send_to': 'AW-18246052690/LP96COnRw8AcENLWsvxD'});">
       <i class="fa-brands fa-line"></i>
     </a>
   </div>
   <div class="float-btn-wrap">
     <span class="float-label">撥打電話</span>
-    <a href="tel:0873501388" class="float-btn float-btn-tel" aria-label="撥打電話">
+    <a href="tel:0873501388" class="float-btn float-btn-tel" aria-label="撥打電話" onclick="gtag('event', 'conversion', {'send_to': 'AW-18246052690/LP96COnRw8AcENLWsvxD'});">
       <i class="fa-solid fa-phone"></i>
     </a>
   </div>
@@ -456,10 +453,10 @@ vicSlides.forEach((_, i) => {
 var vicTimer = setInterval(function(){ vicChange(1); }, 4000);
 
 function vicGoTo(n) {
-  vicSlides[vicIdx].style.display = 'none';
+  vicSlides[vicIdx].classList.remove('active');
   dotsContainer.children[vicIdx].style.background = 'rgba(201,168,76,0.3)';
   vicIdx = (n + vicSlides.length) % vicSlides.length;
-  vicSlides[vicIdx].style.display = 'block';
+  vicSlides[vicIdx].classList.add('active');
   dotsContainer.children[vicIdx].style.background = '#C9A84C';
   clearInterval(vicTimer);
   vicTimer = setInterval(function(){ vicChange(1); }, 4000);
